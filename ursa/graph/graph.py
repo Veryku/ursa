@@ -234,3 +234,43 @@ class Graph(object):
         @return: The attribute requested.
         """
         return getattr(self, item)
+
+    def __repr__(self):
+        """Return the official string representation of a Graph object.
+
+        @return: A string representation of this Graph object.
+        """
+        repr_dict = {k: repr(ray.get(v)) for k, v in self.vertices}
+        return "Graph(_creation_transaction_id={0}, vertices={1}".format(self._creation_transaction_id, repr(repr_dict))
+
+    def __iter__(self):
+        """Return an iterator of the vertices in the graph.
+
+        @return: An iterator for the vertex store.
+        """
+        return self.vertices.iteritems()
+
+    def __len__(self):
+        """Return the number of vertices in the graph.
+
+        @return: The number of vertices in the graph.
+        """
+        return len(self.vertices)
+
+    def __getitem__(self, key):
+        """Return the vertex corresponding to the given key in the graph.
+
+        @param key: The key of the requested vertex.
+
+        @return: The vertex corresponding to the key, or None if no vertex of that key exists.
+        """
+        return self.vertices.get(key, None)
+
+    def __contains__(self, key):
+        """Return if this graph contains a vertex with the requested key
+
+        @param key: The key to check.
+
+        @return: True if the graph contains the vertex, False otherwise.
+        """
+        return key in self.vertices

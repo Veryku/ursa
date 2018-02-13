@@ -162,6 +162,16 @@ class _Vertex(object):
         """
         return self.vertex_data is not None
 
+    def __repr__(self):
+        """Return the official string representation of a _Vertex object.
+
+        @return: A string representation of this _Vertex object.
+        """
+        return "_Vertex(vertex_data={0}, local_edges={1}, foreign_edges={2}, transaction_id={3})".format(
+            ray.get(self.vertex_data),
+            self.local_edges,
+            self.foreign_edges,
+            self._transaction_id)
 
 class _DeletedVertex(_Vertex):
     def __init__(self, transaction_id):
